@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace CryptoQuotes.Core;
+﻿namespace CryptoQuotes.Core;
 
 public interface IExchangeRatesService
 {
