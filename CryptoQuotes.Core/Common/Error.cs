@@ -1,24 +1,16 @@
 ﻿namespace CryptoQuotes.Core;
 
-public class Error
+public class Error(string code, string message)
 {
-    private List<object> _data = new();
+    private readonly List<object> _data = [];
     
-    public string Code { get; }
-    public string Message { get; }
+    public string Code { get; } = code;
+    public string Message { get; } = message;
     public IReadOnlyCollection<object> Data => _data;
-
-    public Error(string code, string message)
-    {
-        Code = code;
-        Message = message;
-    }
 
     public Error AddData(object data)
     {
         _data.Add(data);
         return this;
     }
-    
-    public static readonly Error None = new Error(string.Empty, string.Empty);
 }

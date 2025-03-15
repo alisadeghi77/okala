@@ -8,7 +8,6 @@ public class GetCryptoQuoteQueryHandlerTests
 {
     private readonly Mock<ICoinMarketCapService> _coinMarketCapServiceMock;
     private readonly Mock<IExchangeRatesService> _exchangeRatesServiceMock;
-    private readonly IOptions<CurrencySettings> _currencySettings;
     private readonly GetCryptoQuoteQueryHandler _handler;
 
     public GetCryptoQuoteQueryHandlerTests()
@@ -16,7 +15,7 @@ public class GetCryptoQuoteQueryHandlerTests
         _coinMarketCapServiceMock = new Mock<ICoinMarketCapService>();
         _exchangeRatesServiceMock = new Mock<IExchangeRatesService>();
 
-        _currencySettings = Options.Create(new CurrencySettings
+        var currencySettings = Options.Create(new CurrencySettings
         {
             BaseCurrency = "USD",
             CurrencySymbols = new List<string> { "EUR", "GBP" }
@@ -25,7 +24,7 @@ public class GetCryptoQuoteQueryHandlerTests
         _handler = new GetCryptoQuoteQueryHandler(
             _coinMarketCapServiceMock.Object,
             _exchangeRatesServiceMock.Object,
-            _currencySettings);
+            currencySettings);
     }
 
     [Fact]
@@ -93,22 +92,20 @@ public class GetCryptoQuoteQueryHandlerTests
                     new Dictionary<string, List<CryptoAsset>>
                     {
                         {
-                            cryptoCode, new List<CryptoAsset>
-                            {
+                            cryptoCode, [
                                 new(1, "Crypto", cryptoCode, "slug", null, DateTime.Now, null, null, null, null, null,
-                                    1,
-                                    false, 1, 0, null, null,
+                                    1, false, 1, 0, null, null,
                                     new Dictionary<string, Quote>
                                     {
                                         {
-                                            "USD", new Quote(cryptoPrice, 1000000.0m, 5.0m, -1.2m, 2.3m, 3.1m, 10.5m,
-                                                20.2m, 30.7m, 1000000000.0m, 45.0m, 1200000000.0m, 500000000.0m,
-                                                DateTime.Now
-                                            )
+                                            "USD",
+                                            new Quote(cryptoPrice, 1000000.0m, 5.0m, -1.2m, 2.3m, 3.1m, 10.5m, 20.2m,
+                                                30.7m,
+                                                1000000000.0m, 45.0m, 1200000000.0m, 500000000.0m, DateTime.Now)
                                         }
                                     }
                                 )
-                            }
+                            ]
                         }
                     }
                 )

@@ -9,9 +9,8 @@ public class ExchangeRatesService(
     IOptions<ExchangeRatesSettings> exchangeRatesSettings)
     : IExchangeRatesService
 {
-    private readonly ExchangeRatesSettings _exchangeRatesSettings = exchangeRatesSettings.Value;
-
     private const string StaticEndPoint = "latest?access_key={0}&symbols={1}&base={2}";
+    private readonly ExchangeRatesSettings _exchangeRatesSettings = exchangeRatesSettings.Value;
 
     public async Task<Result<ExchangeRatesResponse>> GetExchangeRatesAsync(
         string baseCurrency,

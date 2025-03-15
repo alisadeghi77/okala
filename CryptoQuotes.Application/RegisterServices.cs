@@ -8,7 +8,7 @@ public static class RegisterServices
 {
     public static IServiceCollection RegisterApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<CurrencySettings>(configuration.GetSection("ExchangeRatesSettings"));
+        services.Configure<CurrencySettings>(configuration.GetSection("CurrencySettings"));
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterServices).Assembly));
         

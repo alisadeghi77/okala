@@ -13,7 +13,7 @@ public class Result<T>
         Error = error;
     }
 
-    public static Result<T> Success(T value) => new Result<T>(value, true, null);
+    public static Result<T> Success(T value) => new(value, true, null);
 
-    public static Result<T> Failure(Error error) => new Result<T>(default, false, error);
+    public static Result<T> Failure(Error error) => new(default, false, error);
 }
